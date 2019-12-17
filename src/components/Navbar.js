@@ -1,5 +1,5 @@
 import React from "react";
-import lion from "../lion-715852_960_720.jpeg";
+import lion from "../images/lion-715852_960_720.jpeg";
 import './Navbar.scss';
 
 const Navbar = () => {

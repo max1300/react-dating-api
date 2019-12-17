@@ -11,10 +11,13 @@ const Login = () => {
         const pass = e.target.elements.password.value;
         e.preventDefault();
         axios.post(`${process.env.REACT_APP_API_URL_BACK}api/login_check`, {username:email, password:pass})
-            .then((response) => {
+            .then(response => {
                 console.log(response);
+                const token = response.data.token;
+                localStorage.setItem("tokenUser", token);
             }, (error) => {
                 console.log(error);
+                localStorage.removeItem("tokenUser");
             });
     }
 
