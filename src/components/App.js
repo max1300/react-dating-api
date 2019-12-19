@@ -10,6 +10,7 @@ import History from "./utils/History";
 import PrivateRoute from "./route/PrivateRoute";
 import Footer from "./layout/footerUser/Footer";
 import axios from "axios";
+import Users from "./User/Users";
 
 const App = () => {
     const [isLogged, setLogged] = useState(localStorage.getItem('tokenUser') !== null);
@@ -42,9 +43,10 @@ const App = () => {
                     <NavDate />
                     <div>
                         <Switch>
-                            <Route path={ROUTES.USERLIST}/>
                             <Route path={ROUTES.LOGIN} component={Login}/>
+                            <Route path={ROUTES.USERLIST} component={Users}/>
                             <PrivateRoute path={ROUTES.HOME}></PrivateRoute>
+
                         </Switch>
                     </div>
                 </Router>

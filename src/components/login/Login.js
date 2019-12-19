@@ -9,7 +9,7 @@ import UserContext from "../context/UserContext";
 
 const Login = (props) => {
     const {updateLogged}= useContext(AuthContext);
-    const {username, setUsername} = useContext(UserContext);
+    const {setUsername} = useContext(UserContext);
 
     const axiosData = (e) => {
         const email = e.target.elements.email.value;
