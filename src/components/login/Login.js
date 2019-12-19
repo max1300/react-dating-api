@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import LoginForm from "./LoginForm";
 import axios from "axios";
 import "./Login.scss";
-
+import UserContext from "../UserContext";
+import History from "../utils/History";
 
 const Login = () => {
+    const {updateLogged}= useContext(UserContext);
 
     const axiosData = (e) => {
         const email = e.target.elements.email.value;
@@ -15,6 +17,8 @@ const Login = () => {
                 console.log(response);
                 const token = response.data.token;
                 localStorage.setItem("tokenUser", token);
+                updateLogged(true);
+                History.push('/');
             }, (error) => {
                 console.log(error);
                 localStorage.removeItem("tokenUser");
@@ -22,26 +26,24 @@ const Login = () => {
     }
 
     return (
-        <div className="container">
             <div className="container">
-                <div className="row">
-                    <div className="col-md-5 mx-auto">
-                        <div id="first">
-                            <div className="myform form ">
-                                <div className="logo mb-3">
-                                    <div className="col-md-12 text-center">
-                                        <h1>Login</h1>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-5 mx-auto">
+                            <div id="first">
+                                <div className="myform form ">
+                                    <div className="logo mb-3">
+                                        <div className="col-md-12 text-center">
+                                            <h1>Login</h1>
+                                        </div>
                                     </div>
+                                    <LoginForm getLogin={axiosData}/>
                                 </div>
-                                <LoginForm getLogin={axiosData}/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-
     );
 }
 export default Login;
