@@ -2,17 +2,18 @@ import React, {useContext} from "react";
 import LoginForm from "./LoginForm";
 import axios from "axios";
 import "./Login.scss";
-import UserContext from "../UserContext";
+import AuthContext from "../context/AuthContext";
 import History from "../utils/History";
+import {ENDPOINT_LOGIN} from "../utils/UrlConstant";
 
-const Login = () => {
-    const {updateLogged}= useContext(UserContext);
+const Login = (props) => {
+    const {updateLogged}= useContext(AuthContext);
 
     const axiosData = (e) => {
         const email = e.target.elements.email.value;
         const pass = e.target.elements.password.value;
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_URL_BACK}api/login_check`, {username:email, password:pass})
+        axios.post(ENDPOINT_LOGIN, {username:email, password:pass})
             .then(response => {
                 console.log(response);
                 const token = response.data.token;
@@ -39,6 +40,7 @@ const Login = () => {
                                     </div>
                                     <LoginForm getLogin={axiosData}/>
                                 </div>
+                                <p className="attention-login">You must log in to view the page</p>
                             </div>
                         </div>
                     </div>

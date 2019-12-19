@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import './App.scss';
-import NavDate from "./NavDate";
+import NavDate from "./layout/nav/NavDate";
 import Login from "./login/Login";
 import { Router, Route, Switch} from "react-router-dom";
-import UserContext from "./UserContext";
+import UserContext from "./context/AuthContext";
 import * as ROUTES from "../components/route/ConstantRoute";
 import History from "./utils/History";
 import PrivateRoute from "./route/PrivateRoute";
@@ -18,8 +18,8 @@ const App = () => {
 
     return (
         <UserContext.Provider value={contextValue}>
-          <NavDate/>
             <Router history={History}>
+                <NavDate />
                 <div>
                     <Switch>
                         <Route path={ROUTES.LOGIN} component={Login}/>
