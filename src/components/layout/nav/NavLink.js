@@ -8,7 +8,7 @@ const NavLink = () => {
     const {isLogged, updateLogged}= useContext(AuthContext);
 
     const LogOut = (e) => {
-        localStorage.removeItem("tokenUser");
+        localStorage.clear();
         updateLogged(false);
     }
 
@@ -20,12 +20,24 @@ const NavLink = () => {
         {
             isLogged ?
                 <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <Link className="nav-link" to={ROUTES.HOME} onClick={LogOut}>Deconnexion</Link>
+                    <li>
+                    <Link className="nav-link" to={ROUTES.USERLIST}>Users</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={ROUTES.HOME}>
-                            <span className="fa fa-lg">&#xf007;</span>
+                            <div className="dropdown">
+                            <button className="btn btn-secondary dropdown-toggle"
+                                    type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false"
+                                    style={{backgroundColor:"transparent", border:"none"}}>
+                                <span className="fa fa-lg">&#xf007;</span></button>
+                                <div className="dropdown-menu dropdown-menu-md-right text-center" aria-labelledby="dropdownMenuButton">
+                                    <Link className="dropdown-item" to="#">Compte</Link>
+                                    <Link className="dropdown-item" to="#">Messages</Link>
+                                    <Link className="dropdown-item" to={ROUTES.HOME} onClick={LogOut}>Deconnexion</Link>
+                                </div>
+                            </div>
                         </Link>
                     </li>
                 </ul>

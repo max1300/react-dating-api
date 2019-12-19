@@ -7,6 +7,7 @@ import UserContext from "./context/AuthContext";
 import * as ROUTES from "../components/route/ConstantRoute";
 import History from "./utils/History";
 import PrivateRoute from "./route/PrivateRoute";
+import Footer from "./layout/footerUser/Footer";
 
 const App = () => {
     const [isLogged, setLogged] = useState(localStorage.getItem('tokenUser') !== null);
@@ -22,11 +23,13 @@ const App = () => {
                 <NavDate />
                 <div>
                     <Switch>
+                        <Route path={ROUTES.USERLIST}/>
                         <Route path={ROUTES.LOGIN} component={Login}/>
                         <PrivateRoute path={ROUTES.HOME}></PrivateRoute>
                     </Switch>
                 </div>
             </Router>
+            <Footer/>
         </UserContext.Provider>
     );
 }
