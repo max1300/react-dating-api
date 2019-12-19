@@ -5,9 +5,11 @@ import "./Login.scss";
 import AuthContext from "../context/AuthContext";
 import History from "../utils/History";
 import {ENDPOINT_LOGIN} from "../utils/UrlConstant";
+import UserContext from "../context/UserContext";
 
 const Login = (props) => {
     const {updateLogged}= useContext(AuthContext);
+    const {username, setUsername} = useContext(UserContext);
 
     const axiosData = (e) => {
         const email = e.target.elements.email.value;
@@ -18,6 +20,8 @@ const Login = (props) => {
                 console.log(response);
                 const token = response.data.token;
                 localStorage.setItem("tokenUser", token);
+                const userLogin = response.data.login;
+                setUsername(userLogin);
                 updateLogged(true);
                 History.push('/');
             }, (error) => {

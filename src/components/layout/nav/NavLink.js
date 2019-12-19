@@ -1,11 +1,13 @@
 import React, {useContext} from "react";
 import * as ROUTES from "../../route/ConstantRoute";
 import AuthContext from "../../context/AuthContext";
+import UserContext from "../../context/UserContext";
 import { Link } from "react-router-dom";
 import './Navbar.scss';
 
 const NavLink = () => {
-    const {isLogged, updateLogged}= useContext(AuthContext);
+    const {isLogged, updateLogged} = useContext(AuthContext);
+    const {username} = useContext(UserContext);
 
     const LogOut = (e) => {
         localStorage.clear();
@@ -18,11 +20,12 @@ const NavLink = () => {
             <Link className="nav-link" to={ROUTES.HOME}>Accueil</Link>
         </li>
         {
-            isLogged ?
+            isLogged && username ?
                 <ul className="navbar-nav ml-auto">
                     <li>
                     <Link className="nav-link" to={ROUTES.USERLIST}>Users</Link>
                     </li>
+                    <span className="nav-link">{username}</span>
                     <li className="nav-item">
                         <Link className="nav-link" to={ROUTES.HOME}>
                             <div className="dropdown">

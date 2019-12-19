@@ -1,14 +1,17 @@
 import React, {useContext} from "react";
 import { Route, Redirect} from "react-router-dom";
-import UserContext from "../context/AuthContext";
+import AuthContext from "../context/AuthContext";
+import UserContext from "../context/UserContext";
 
 const PrivateRoute = ({ children, ...rest }) => {
-    const {isLogged}= useContext(UserContext);
+    const {isLogged}= useContext(AuthContext);
+    const {username}= useContext(UserContext);
+
     return (
         <Route
             {...rest}
             render={({ location }) =>
-                isLogged ? (
+                isLogged && username ? (
                     children
                 ) : (
                     <Redirect
