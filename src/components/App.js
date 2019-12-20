@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './App.scss';
 import NavDate from "./layout/nav/NavDate";
 import Login from "./login/Login";
@@ -9,7 +9,6 @@ import * as ROUTES from "../components/route/ConstantRoute";
 import History from "./utils/History";
 import PrivateRoute from "./route/PrivateRoute";
 import Footer from "./layout/footerUser/Footer";
-import axios from "axios";
 import Users from "./User/Users";
 
 const App = () => {
@@ -22,19 +21,9 @@ const App = () => {
 
     const userValue = {
         username:username,
-        setUsername:setUsername
+        updateUsername:setUsername
     }
 
-    let token = localStorage.getItem('tokenUser');
-
-    useEffect(() => {
-            axios.post(`${process.env.REACT_APP_API_URL_BACK}`, { headers: {"Authorization" : `Bearer ${token}`}})
-                .then(response => {
-                    console.log(response);
-                }, (error) => {
-                    console.log(error);
-                });
-    })
 
     return (
         <AuthContext.Provider value={contextValue}>
@@ -43,7 +32,7 @@ const App = () => {
                     <NavDate />
                     <div>
                         <Switch>
-                            <Route path={ROUTES.LOGIN} component={Login}/>
+                            <PrivateRoute path={ROUTES.LOGIN} component={Login}/>
                             <Route path={ROUTES.USERLIST} component={Users}/>
                             <PrivateRoute path={ROUTES.HOME}></PrivateRoute>
 

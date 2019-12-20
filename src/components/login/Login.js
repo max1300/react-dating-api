@@ -9,7 +9,7 @@ import UserContext from "../context/UserContext";
 
 const Login = (props) => {
     const {updateLogged}= useContext(AuthContext);
-    const {setUsername} = useContext(UserContext);
+    const {updateUsername} = useContext(UserContext);
 
     const axiosData = (e) => {
         const email = e.target.elements.email.value;
@@ -21,7 +21,8 @@ const Login = (props) => {
                 const token = response.data.token;
                 localStorage.setItem("tokenUser", token);
                 const userLogin = response.data.login;
-                setUsername(userLogin);
+                localStorage.setItem("username", userLogin);
+                updateUsername(userLogin);
                 updateLogged(true);
                 History.push('/');
             }, (error) => {
